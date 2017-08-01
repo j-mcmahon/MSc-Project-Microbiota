@@ -45,14 +45,10 @@ for file_name in kreport_files:
 		if file_line[4] == "28384": #other sequences, stop looking at this point
 			stop_looking  = 1
 			stopped_looking = stopped_looking + 1 #how many times did this happen (should be 28)
-		if file_line[4] == 10239: #this is viruses, we still want those
-			stop_looking = 0 #it's ok to look now, the bad stuff is gone
 		if file_line[3] == "P" and stop_looking == 0: # if/when we hit a phyla
 			current_phyla = file_line[4] #record the current_phyla as the taxid
 			phyla_name = [file_line[5].strip("\n")]
 # need to know if the phyla has been stared already, and act accordingly
-			#print(current_phyla)
-			#print(seen_genera)
 #			stop_switch = 0 # we've hit a phyla, so we can assume that everything following this point is in that phyla unless indicated otherwise
 			if current_phyla in seen_genera: #we've seen it in at least one other file prior to this one, so we're appending to an existing key
 				#print("skip")
@@ -82,8 +78,6 @@ dictionary_output.close()
 #			stop_switch = 1 # the off position, something has happened that indicates we're no longer looking at the contents of a phyla
 # As far as I can see, the k-reports are reliably ordered
 # This code is all part of the big loop, so the resulting dictionary should be pretty comprehensive
-	#print("This is the end of the iteration for that file, this is current status of citrobacter ->" + str(genera["544"]))# A test! Citrobacter
-
 
 
 # go through each centrifuge file, line by line
